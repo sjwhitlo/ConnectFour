@@ -1,0 +1,593 @@
+<html>
+  
+  <!-- 2 Player Connect 4 -->
+  <title>Connect Four</title>
+  
+  <style>
+  	
+    img {
+      height:14vmin;
+    }
+    
+    td {
+    	text-align: center;
+    	padding: 1vmin;
+    }
+    
+    table.fixed {
+    	table-layout: fixed;
+    	width: 14vmin;
+    }
+    
+    table.fixed td {
+    	overflow: hidden;
+    }
+    
+    button {
+    	border: none /* 1px solid black */;
+    	border-radius: 2vmin;
+    	width: 12vmin;
+    	height: 4vmin;
+    }
+    
+    body {
+    	font-family: Helvetica;
+    }
+    
+    select {
+    	border: none /* 1px solid black */;
+    	border-radius: 2vmin;
+    	width: 15vmin;
+    	height: 4vmin;
+    }
+    
+    div { /* circle */
+    	width: 12vmin;
+		height: 12vmin;
+		border-radius: 50%;
+    }
+    
+    button.disabled {
+    	opacity: 0;
+    }
+    
+	/* COLORS */
+
+    .red {
+		background: Red;
+		color: white;
+	}
+	
+	.orange {
+		background: DarkOrange;
+	}
+	
+	.yellow {
+		background: Gold;
+	}
+	
+	.green {
+		background: MediumSeaGreen;
+		color: white;
+	}
+	
+	.blue {
+		background: DodgerBlue;
+		color: white;
+	}
+	
+	.purple {
+		background: BlueViolet;
+		color: white;
+	}
+	
+	.gray {
+		background: Gray;
+		color: white;
+	}
+	
+	.white {
+		background: White;
+	}
+	
+	.black {
+		background: Black;
+		color: white;
+	}
+	
+	.blackBkgd {
+		background: #1e2122;
+		color: white;
+	}
+	
+	.circleDefault {
+		background: Black;
+		opacity: 0.1;
+	}
+	
+  </style>
+  
+	<body id="body" bgcolor="White">
+    
+    <br>
+    
+	<!-- enclosing table for spacing -->
+	<table align="center" style="border-collapse: collapse;">
+		<tr>
+			<td>
+    <!-- The buttons at the tops of the rows -->
+    <table class="fixed" align="center" style="border-collapse: collapse; width:98vmin; height:6vmin">
+	  <tr>
+      	<th><button id="c0" onClick="colSelect(0)"></button></th>
+      	<th><button id="c1" onClick="colSelect(1)"></button></th>
+      	<th><button id="c2" onClick="colSelect(2)"></button></th>
+      	<th><button id="c3" onClick="colSelect(3)"></button></th>
+      	<th><button id="c4" onClick="colSelect(4)"></button></th>
+      	<th><button id="c5" onClick="colSelect(5)"></button></th>
+      	<th><button id="c6" onClick="colSelect(6)"></button></th>
+      </tr>
+    </table>
+      
+    <!-- Each cell is 14 vw x 14 vw -->
+    <table align="center" style="border-collapse: collapse; width:98vmin; height:84vmin">
+      <tr>
+        <td> <div id="c5_0" onClick="colSelect(0)"></div></td>
+        <td> <div id="c5_1" onClick="colSelect(1)"></div></td>
+        <td> <div id="c5_2" onClick="colSelect(2)"></div></td>
+        <td> <div id="c5_3" onClick="colSelect(3)"></div></td>
+        <td> <div id="c5_4" onClick="colSelect(4)"></div></td>
+        <td> <div id="c5_5" onClick="colSelect(5)"></div></td>
+        <td> <div id="c5_6" onClick="colSelect(6)"></div></td>
+      </tr>
+      <tr>
+        <td> <div id="c4_0" onClick="colSelect(0)"></div></td>
+        <td> <div id="c4_1" onClick="colSelect(1)"></div></td>
+        <td> <div id="c4_2" onClick="colSelect(2)"></div></td>
+        <td> <div id="c4_3" onClick="colSelect(3)"></div></td>
+        <td> <div id="c4_4" onClick="colSelect(4)"></div></td>
+        <td> <div id="c4_5" onClick="colSelect(5)"></div></td>
+        <td> <div id="c4_6" onClick="colSelect(6)"></div></td>
+      </tr>
+      <tr>
+        <td> <div id="c3_0" onClick="colSelect(0)"></div></td>
+        <td> <div id="c3_1" onClick="colSelect(1)"></div></td>
+        <td> <div id="c3_2" onClick="colSelect(2)"></div></td>
+        <td> <div id="c3_3" onClick="colSelect(3)"></div></td>
+        <td> <div id="c3_4" onClick="colSelect(4)"></div></td>
+        <td> <div id="c3_5" onClick="colSelect(5)"></div></td>
+        <td> <div id="c3_6" onClick="colSelect(6)"></div></td>
+      </tr>
+      <tr>
+        <td> <div id="c2_0" onClick="colSelect(0)"></div></td>
+        <td> <div id="c2_1" onClick="colSelect(1)"></div></td>
+        <td> <div id="c2_2" onClick="colSelect(2)"></div></td>
+        <td> <div id="c2_3" onClick="colSelect(3)"></div></td>
+        <td> <div id="c2_4" onClick="colSelect(4)"></div></td>
+        <td> <div id="c2_5" onClick="colSelect(5)"></div></td>
+        <td> <div id="c2_6" onClick="colSelect(6)"></div></td>
+      </tr>
+      <tr>
+        <td> <div id="c1_0" onClick="colSelect(0)"></div></td>
+        <td> <div id="c1_1" onClick="colSelect(1)"></div></td>
+        <td> <div id="c1_2" onClick="colSelect(2)"></div></td>
+        <td> <div id="c1_3" onClick="colSelect(3)"></div></td>
+        <td> <div id="c1_4" onClick="colSelect(4)"></div></td>
+        <td> <div id="c1_5" onClick="colSelect(5)"></div></td>
+        <td> <div id="c1_6" onClick="colSelect(6)"></div></td>
+      </tr>
+      <tr>
+        <td> <div id="c0_0" onClick="colSelect(0)"></div></td>
+        <td> <div id="c0_1" onClick="colSelect(1)"></div></td>
+        <td> <div id="c0_2" onClick="colSelect(2)"></div></td>
+        <td> <div id="c0_3" onClick="colSelect(3)"></div></td>
+        <td> <div id="c0_4" onClick="colSelect(4)"></div></td>
+        <td> <div id="c0_5" onClick="colSelect(5)"></div></td>
+        <td> <div id="c0_6" onClick="colSelect(6)"></div></td>
+      </tr>
+    </table>
+    
+    </td> <!-- End enclosing board ( left column ) -->
+    <td>
+    	<p>Player 1 Color:</p>
+    	<select id="p1sel" onchange="changeColor('playerOne', value)">
+    		<option id="red" value="red">Red</option>
+    		<option id="orange" value="orange">Orange</option>
+    		<option id="yellow" value="yellow" selected>Yellow</option>
+    		<option id="green" value="green">Green</option>
+    		<option id="blue" value="blue">Blue</option>
+    		<option id="purple" value="purple">Purple</option>
+    		<option id="gray" value="gray">Gray</option>
+    		<option id="black" value="black">Black</option>
+    		<option id="white" value="white">White</option>
+    	</select>
+    	
+    	<p>Player 2 Color:</p>
+    	<select id="p2sel" onchange="changeColor('playerTwo', value)">
+    		<option id="red" value="red" selected>Red</option>
+    		<option id="orange" value="orange">Orange</option>
+    		<option id="yellow" value="yellow">Yellow</option>
+    		<option id="green" value="green">Green</option>
+    		<option id="blue" value="blue">Blue</option>
+    		<option id="purple" value="purple">Purple</option>
+    		<option id="gray" value="gray">Gray</option>
+    		<option id="black" value="black">Black</option>
+    		<option id="white" value="white">White</option>
+    	</select>
+    	
+    	<p>Background Color:</p>
+    	<select id="bkgdsel" onchange="changeBkgd(value)" style="border: 1px solid;">
+    		<option id="red" value="red">Red</option>
+    		<option id="orange" value="orange">Orange</option>
+    		<option id="yellow" value="yellow">Yellow</option>
+    		<option id="green" value="green">Green</option>
+    		<option id="blue" value="blue">Blue</option>
+    		<option id="purple" value="purple">Purple</option>
+    		<option id="gray" value="gray">Gray</option>
+    		<option id="black" value="black">Black</option>
+    		<option id="white" value="white" selected>White</option>
+    	</select>
+    	 
+    	 <p>New Game:</p>
+		<select id= selNewGame onchange="startNewGameCust(value)" style="border: 1px solid;">
+			<option id="def" selected disabled>Choose Player</option>
+	    	<option id="p1" value="p1">Player 1</option>
+    		<option id="p2" value="p2">Player 2</option>
+    	</select>
+    	
+    </td> <!-- End enclosing options ( column 2 ) -->
+    
+  </body>
+  
+  <script>
+    ////////////
+    //  VARS  //
+    ////////////
+    
+    var playerTwoTurn = true;
+    var winner = false;
+    var board = [];
+    var playerOneCol;
+    var playerTwoCol;
+    var bkgdCol;
+    
+    // initialize board
+    initBoard();
+     	
+    // onKeyPress:
+    document.onkeypress = function() { keyboardInput(event) };
+    
+    window.onload = function() {
+      	bkgdCol = 'white';
+      	changeBkgd( bkgdCol );
+      	
+      	playerOneCol = 'yellow';
+    	playerTwoCol = 'red';
+    	
+    	document.getElementById( "p1sel" ).namedItem( playerTwoCol ).disabled = true;
+    	document.getElementById( "p1sel" ).namedItem( bkgdCol ).disabled = true;
+    	
+    	document.getElementById( "p2sel" ).namedItem( playerOneCol ).disabled = true;
+    	document.getElementById( "p2sel" ).namedItem( bkgdCol ).disabled = true;
+    	
+    	document.getElementById( "bkgdsel" ).namedItem( playerOneCol ).disabled = true;
+    	document.getElementById( "bkgdsel" ).namedItem( playerTwoCol ).disabled = true;
+      	
+      	// set the buttons to color of current player turn
+		buttonColor();
+    }
+    
+    function initBoard() {
+    	// init board. (c&r swapped to make column searches easier)
+    	for ( var c = 0; c < 7; c++ ) {
+    		board[c] = [];
+    		for ( var r = 0; r < 6; r++ ) {
+    			board[c][r] = " ";
+    		}
+    	}
+    	
+    	// fill all cells with empty circles
+    	for ( var r = 0; r < 6; r++ ) {
+	    	for ( var c = 0; c < 7; c++ ) {
+      			document.getElementById("c".concat(r,"_",c)).className = "circleDefault";
+      		}
+      	}
+    }
+    
+    function changeColor( obj, col ) {
+    	if ( obj === "playerOne" ) {
+    		var prevCol = playerOneCol;
+    		
+			for ( var r = 0; r < board[0].length; r++ ) {
+	    		for ( var c = 0; c < board.length; c++ ) {
+      				if ( board[c][r] === "y" ) {
+      					document.getElementById("c".concat(r,"_",c)).className = col;
+      				}
+      			}
+      		}
+			
+			// set new color
+			playerOneCol = col;
+			
+			// disable p2 col
+			document.getElementById( "p2sel" ).namedItem( col ).disabled = true;
+			document.getElementById( "bkgdsel" ).namedItem( col ).disabled = true;
+			// enable prevCol
+			document.getElementById( "p2sel" ).namedItem( prevCol ).disabled = false;
+			document.getElementById( "bkgdsel" ).namedItem( prevCol ).disabled = false;
+		} else {
+			var prevCol = playerTwoCol;
+    		
+			for ( var r = 0; r < board[0].length; r++ ) {
+	    		for ( var c = 0; c < board.length; c++ ) {
+      				if ( board[c][r] === "r" ) {
+      					document.getElementById("c".concat(r,"_",c)).className = col;
+      				}
+      			}
+      		}
+			
+			// set new color
+			playerTwoCol = col;
+			
+			// disable p2 col
+			document.getElementById( "p1sel" ).namedItem( col ).disabled = true;
+			document.getElementById( "bkgdsel" ).namedItem( col ).disabled = true;
+			// enable prevCol
+			document.getElementById( "p1sel" ).namedItem( prevCol ).disabled = false;
+			document.getElementById( "bkgdsel" ).namedItem( prevCol ).disabled = false;
+		}
+		
+		// change button color
+		buttonColor();
+    }
+    
+    function changeBkgd( col ) {
+    	// enable previous colors for p1, p2
+    	document.getElementById( "p1sel" ).namedItem( bkgdCol ).disabled = false;
+		document.getElementById( "p2sel" ).namedItem( bkgdCol ).disabled = false;
+    
+    	// set current color
+    	bkgdCol = col;
+    
+    	// set bkgd color
+    	document.getElementById( "body" ).className = (col === "black" ) ? 'blackBkgd': col;
+    
+    	// disable p1, p2 selections
+		document.getElementById( "p1sel" ).namedItem( bkgdCol ).disabled = true;
+		document.getElementById( "p2sel" ).namedItem( bkgdCol ).disabled = true;
+		
+		document.getElementById( "bkgdsel" ).className = (col === "black" ) ? 'blackBkgd': col;
+		document.getElementById( "selNewGame" ).className = (col === "black" ) ? 'blackBkgd': col;
+		
+		// update new game button color
+		// document.getElementById( "btnNewGame" ).className = ~col;
+    }
+    
+    function keyboardInput( k ) {
+		// if key == #1
+    	if ( k.which == 49 ) {
+    		colSelect( 0 );
+    	}
+    	// if key == #2
+    	if ( k.which == 50 ) {
+    		colSelect( 1 );
+    	}
+    	// if key == #3
+    	if ( k.which == 51 ) {
+    		colSelect( 2 );
+    	}
+    	// if key == #4
+    	if ( k.which == 52 ) {
+    		colSelect( 3 );
+    	}
+    	// if key == #5
+    	if ( k.which == 53 ) {
+    		colSelect( 4 );
+    	}
+    	// if key == #6
+    	if ( k.which == 54 ) {
+    		colSelect( 5 );
+    	}
+    	// if key == #7
+    	if ( k.which == 55 ) {
+    		colSelect( 6 );
+    	}
+    }
+    
+    // Main logic here
+    function colSelect( c ) {
+    	// While no winner
+    	if ( !winner ) {
+    		// get the input, do logic
+    		// if column valid move
+    		var rowPos = nextAvail( c );
+    		// if invalid column, break
+    		if ( rowPos == -1 ) {
+    			alert( "Invalid move. Pick another column." );
+    			return;
+    		}
+    		
+    		// place checker
+    		placeChecker( c, rowPos );
+    		
+    		// winner? break if yes. Program not allowed to go any further
+    		if ( isWinner() ) {
+	    		return;
+    		}
+    	
+    		// toggle Button color
+    		playerTwoTurn = !playerTwoTurn;
+    	
+    		// change color of buttons    	
+    		buttonColor();
+    		
+    	} // end if winner
+    	
+    	if ( noMoreMoves() ) {
+    		var newGame = confirm( "Tie game.\n\nClick 'OK' for new game." );
+    		if ( newGame ) {
+    			// if new game selected, reload window
+    			startNewGame();
+    		} // end if
+    	} // end if no more moves
+    }
+    
+    function placeChecker( c, r ) {
+		// place piece
+    	board[c][r] = playerTwoTurn ? "y" : "r";
+    	// Fill proper place
+    	document.getElementById("c".concat(r,"_",c)).className = playerTwoTurn ? playerOneCol : playerTwoCol;
+    	
+    	// if the column is fully occupied, disable the button
+    	if ( r == board[c].length - 1 ) {
+    		document.getElementById("c".concat(c)).disabled = true;
+    	}
+    }
+    
+    function nextAvail( c ) {
+    	for ( var i = 0; i < board[c].length; i++ ) {
+    		if ( board[c][i] == " " ) {
+    			return i;
+    		}
+    	}
+    	// if invalid column, return -1
+    	return -1;
+    }
+    
+    function buttonColor() {
+    	for ( var i = 0; i < 7; i++ ) {
+      		// set all buttons to color
+      		if ( !document.getElementById("c".concat(i)).disabled ) {
+      			document.getElementById("c".concat(i)).className = playerTwoTurn ? playerOneCol : playerTwoCol;
+      		} else {
+      			document.getElementById("c".concat(i)).className = "disabled";
+      		}
+      	}
+      	document.getElementById( "p1sel" ).className = playerOneCol;
+      	document.getElementById( "p2sel" ).className = playerTwoCol;
+    }
+    
+    function isWinner() {
+		// Logic
+    	// check columns
+    	for ( var c = 0; c < board.length; c++ ) {
+    		var column = board[c].join("");
+    		if ( column.includes( "yyyy" ) ) {
+    			wins( firstCap( playerOneCol ) );
+    			return true;
+    		} else if ( column.includes( "rrrr" ) ) {
+    			wins( firstCap( playerTwoCol ) );
+    			return true;
+    		}
+    	}
+    	
+    	// check rows
+    	// for each r, iterate c
+    	for ( var r = 0; r < board[0].length; r++ ) {
+    		var row = "";
+    		for ( var c = 0; c < board.length; c++ ) {
+    			row = row.concat( board[c][r] );
+    		}
+    		if ( row.includes( "yyyy" ) ) {
+    			wins( firstCap( playerOneCol ) );
+    			return true;
+    		} else if ( row.includes( "rrrr" ) ) {
+    			wins( firstCap( playerTwoCol ) );
+    			return true;
+    		}
+    	}
+    	
+    	// Check diagonals
+    	// iterate over 4x4 grids
+    	for ( var r = 0; r < board[0].length-3; r++ ) {
+    		
+    		/**
+    		 c 3\  /
+    		   2 \/
+    		   1 /\
+    		   0/  \
+    		    0123
+    		    r
+    		*/
+    		for ( var c = 0; c < board.length-3; c++ ) {
+    			var diag1 = ""; // shape: \
+				var diag2 = ""; // shape: /
+				
+				diag1 = diag1.concat( board[c+3][r], board[c+2][r+1], board[c+1][r+2], board[c][r+3] );
+    			diag2 = diag2.concat( board[c][r], board[c+1][r+1], board[c+2][r+2], board[c+3][r+3] );
+    			
+    			// console.log( "diag1: " + diag1 );
+				// console.log( "diag2: " + diag2 );
+    		
+    			if ( diag1.includes( "yyyy" ) || diag2.includes( "yyyy" ) ) {
+    				wins( firstCap( playerOneCol ) );
+    				return true;
+    			} else if ( diag1.includes( "rrrr" ) || diag2.includes( "rrrr" ) ) {
+    				wins( firstCap( playerTwoCol ) );
+    				return true;
+    			}
+    		}	
+    	}
+    	
+    	// no winner
+    	return false;
+    }
+    
+    function firstCap( str ) {
+		var toReturn = "";
+		
+		toReturn = toReturn.concat( str.charAt(0).toUpperCase(), str.substr( 1, str.length-1 ) ); 
+		
+    	return toReturn;
+    }
+    
+    function noMoreMoves() {
+    	for ( var c = 0; c < board.length; c++ ) {
+    		var column = board[c].join("");
+    		if ( column.includes( " " ) ) {
+    			return false;
+    		}
+    	}
+    	// if falls through, return true - no more moves
+    	return true;
+    }
+    
+    function wins( c ) {
+    	var newGame = confirm( c.concat( " wins!\n\nClick 'OK' for new game." ) );
+    	if ( newGame ) {
+    		// if new game selected, reload window
+			startNewGame();
+   		} // end if
+    }
+    
+    function startNewGameCust( player ) {
+    	document.getElementById("selNewGame").namedItem( "def" ).selected = true;
+		
+		playerTwoTurn = ( player === "p1" ) ? true : false;
+		
+		startNewGame();
+	}
+    
+    function startNewGame() {
+    	// reset board
+    	initBoard();
+    	// reset winner (boolean)
+    	winner = false;
+    	// winner goes again, tie last to play piece goes first
+    	// --> last color to play goes first
+    	// --> leave player turn alone
+    	
+    	// reset all buttons
+    	for ( var i = 0; i < 7; i++ ) {
+      		// set all buttons to color
+      		document.getElementById("c".concat(i)).disabled = false;
+      	}
+      	
+      	buttonColor();
+    }
+    
+    function notSupported() {
+    	// alert("Functionality currently not supported.");
+    }
+    
+  </script>
+</html>
